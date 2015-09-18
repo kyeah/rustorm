@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `EntityManager` struct in crate `rustorm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, EntityManager">
+
+    <title>rustorm::em::EntityManager - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>rustorm</a>::<wbr><a href='index.html'>em</a></p><script>window.sidebarCurrent = {name: 'EntityManager', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rustorm</a>::<wbr><a href='index.html'>em</a>::<wbr><a class='struct' href=''>EntityManager</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-29' class='srclink' href='../../src/rustorm/em.rs.html#13-15' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct EntityManager&lt;'a&gt; {
+    pub db: &amp;'a <a class='trait' href='../../rustorm/database/trait.Database.html' title='rustorm::database::Database'>Database</a>,
+}</pre><div class='docblock'><p>A higher level API for manipulating objects in the database
+This serves as a helper function for the query api</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr class='stab '>
+                                  <td id='structfield.db'><code>db</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a&gt; <a class='struct' href='../../rustorm/em/struct.EntityManager.html' title='rustorm::em::EntityManager'>EntityManager</a>&lt;'a&gt;</code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(db: &amp;'a <a class='trait' href='../../rustorm/database/trait.Database.html' title='rustorm::database::Database'>Database</a>) -&gt; Self</code></h4>
+<div class='docblock'><p>Create an entity manager with the database connection provided</p>
+</div><h4 id='method.delete' class='method'><code>fn <a href='#method.delete' class='fnname'>delete</a>(&amp;self, table: &amp;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>, filters: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/query/struct.Filter.html' title='rustorm::query::Filter'>Filter</a>&gt;) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+<div class='docblock'><p>delete records of this table</p>
+</div><h4 id='method.get_all' class='method'><code>fn <a href='#method.get_all' class='fnname'>get_all</a>&lt;T&gt;(&amp;self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>get all the records of this table</p>
+</div><h4 id='method.get_all_only_columns' class='method'><code>fn <a href='#method.get_all_only_columns' class='fnname'>get_all_only_columns</a>&lt;T&gt;(&amp;self, columns: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>get all the records of this table, but return only the columns mentioned</p>
+</div><h4 id='method.get_all_ignore_columns' class='method'><code>fn <a href='#method.get_all_ignore_columns' class='fnname'>get_all_ignore_columns</a>&lt;T&gt;(&amp;self, ignore_columns: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>get all the records of this table, ignoring the columns listed, mentioned the other else</p>
+</div><h4 id='method.get_all_distinct' class='method'><code>fn <a href='#method.get_all_distinct' class='fnname'>get_all_distinct</a>&lt;T&gt;(&amp;self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>get all the distinct records of this table</p>
+</div><h4 id='method.get_all_with_filter' class='method'><code>fn <a href='#method.get_all_with_filter' class='fnname'>get_all_with_filter</a>&lt;T&gt;(&amp;self, filters: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/query/struct.Filter.html' title='rustorm::query::Filter'>Filter</a>&gt;) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>get all the records on this table which passed thru the filters
+any query that specified more than the parameters should use the query api</p>
+</div><h4 id='method.get_one' class='method'><code>fn <a href='#method.get_one' class='fnname'>get_one</a>&lt;T&gt;(&amp;self, filter: <a class='struct' href='../../rustorm/query/struct.Filter.html' title='rustorm::query::Filter'>Filter</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>get the first records of this table that passed thru the filters</p>
+</div><h4 id='method.get_exact' class='method'><code>fn <a href='#method.get_exact' class='fnname'>get_exact</a>&lt;T&gt;(&amp;self, id: &amp;<a class='trait' href='../../rustorm/dao/trait.ToValue.html' title='rustorm::dao::ToValue'>ToValue</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>get an exact match, the value is filter against the primary key of the table</p>
+</div><h4 id='method.insert' class='method'><code>fn <a href='#method.insert' class='fnname'>insert</a>&lt;T&gt;(&amp;self, dao: <a class='struct' href='../../rustorm/dao/struct.Dao.html' title='rustorm::dao::Dao'>Dao</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<h4 id='method.insert_with_ignore_columns' class='method'><code>fn <a href='#method.insert_with_ignore_columns' class='fnname'>insert_with_ignore_columns</a>&lt;T&gt;(&amp;self, dao: <a class='struct' href='../../rustorm/dao/struct.Dao.html' title='rustorm::dao::Dao'>Dao</a>, ignore_columns: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>insert this record on the database, ignoring some columns
+which are set by the database default
+columns that are ignored are set by the database automatically</p>
+</div><h4 id='method.insert_ignore_defaulted_columns' class='method'><code>fn <a href='#method.insert_ignore_defaulted_columns' class='fnname'>insert_ignore_defaulted_columns</a>&lt;T&gt;(&amp;self, dao: <a class='struct' href='../../rustorm/dao/struct.Dao.html' title='rustorm::dao::Dao'>Dao</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>insert this record on the database, explicitly setting the defaults of the columns
+it may produce the same result with insert_with_ignore_columns
+the query is different since it may mentions <code>created</code> now(),</p>
+</div><h4 id='method.reset' class='method'><code>fn <a href='#method.reset' class='fnname'>reset</a>(&amp;self)</code></h4>
+<div class='docblock'><p>this is called when there is a problem with the transaction</p>
+</div><h4 id='method.rollback' class='method'><code>fn <a href='#method.rollback' class='fnname'>rollback</a>(&amp;self)</code></h4>
+<div class='docblock'><p>when there is a problem with the transaction process, this can be called</p>
+</div><h4 id='method.update' class='method'><code>fn <a href='#method.update' class='fnname'>update</a>&lt;T&gt;(&amp;self, dao: &amp;<a class='struct' href='../../rustorm/dao/struct.Dao.html' title='rustorm::dao::Dao'>Dao</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>update the Dao, return the updated Dao</p>
+</div><h4 id='method.update_ignore_columns' class='method'><code>fn <a href='#method.update_ignore_columns' class='fnname'>update_ignore_columns</a>&lt;T&gt;(&amp;self, dao: &amp;<a class='struct' href='../../rustorm/dao/struct.Dao.html' title='rustorm::dao::Dao'>Dao</a>, ignore_columns: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>update the Dao, return the updated Dao
+ignored columns will remain unchanged</p>
+</div><h4 id='method.update_only_columns' class='method'><code>fn <a href='#method.update_only_columns' class='fnname'>update_only_columns</a>&lt;T&gt;(&amp;self, dao: &amp;<a class='struct' href='../../rustorm/dao/struct.Dao.html' title='rustorm::dao::Dao'>Dao</a>, columns: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>update the Dao, return the updated Dao
+only the columns specified, the rest is unchanged</p>
+</div><h4 id='method.update_ignore_defaulted_columns' class='method'><code>fn <a href='#method.update_ignore_defaulted_columns' class='fnname'>update_ignore_defaulted_columns</a>&lt;T&gt;(&amp;self, dao: &amp;<a class='struct' href='../../rustorm/dao/struct.Dao.html' title='rustorm::dao::Dao'>Dao</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>update the Dao, return the updated Dao
+the default columns will be reset to whatever the db&#39;s default function will come up.
+ie. updated column will be defaulted everytime a record is updated.</p>
+</div><h4 id='method.update_with_filter' class='method'><code>fn <a href='#method.update_with_filter' class='fnname'>update_with_filter</a>&lt;T&gt;(&amp;self, dao: &amp;<a class='struct' href='../../rustorm/dao/struct.Dao.html' title='rustorm::dao::Dao'>Dao</a>, filter: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/query/struct.Filter.html' title='rustorm::query::Filter'>Filter</a>&gt;) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>update the Dao with filter, return the updated Dao</p>
+</div><h4 id='method.save' class='method'><code>fn <a href='#method.save' class='fnname'>save</a>&lt;T&gt;(&amp;self, dao: T) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='struct' href='../../rustorm/database/struct.DbError.html' title='rustorm::database::DbError'>DbError</a>&gt; <span class='where'>where T: <a class='trait' href='../../rustorm/table/trait.IsTable.html' title='rustorm::table::IsTable'>IsTable</a> + <a class='trait' href='../../rustorm/dao/trait.IsDao.html' title='rustorm::dao::IsDao'>IsDao</a></span></code></h4>
+<div class='docblock'><p>whether to use insert or update
+insert when it is a new record
+update when it is an existing recor
+may use UPSERT in newer versions of postgres
+may use MERGE in oracle, mssql</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+            <p>
+                Search functions by type signature (e.g.
+                <code>vec -> usize</code>)
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rustorm";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

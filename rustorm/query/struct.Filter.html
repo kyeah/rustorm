@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Filter` struct in crate `rustorm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Filter">
+
+    <title>rustorm::query::Filter - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>rustorm</a>::<wbr><a href='index.html'>query</a></p><script>window.sidebarCurrent = {name: 'Filter', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rustorm</a>::<wbr><a href='index.html'>query</a>::<wbr><a class='struct' href=''>Filter</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-2108' class='srclink' href='../../src/rustorm/query.rs.html#105-110' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Filter {
+    pub connector: <a class='enum' href='../../rustorm/query/enum.Connector.html' title='rustorm::query::Connector'>Connector</a>,
+    pub condition: <a class='struct' href='../../rustorm/query/struct.Condition.html' title='rustorm::query::Condition'>Condition</a>,
+    pub subfilters: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/query/struct.Filter.html' title='rustorm::query::Filter'>Filter</a>&gt;,
+}</pre><div class='docblock'><p>TODO: support for functions on columns
+TODO: need to merge with Expr</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr class='stab '>
+                                  <td id='structfield.connector'><code>connector</code></td><td></td></tr><tr class='stab '>
+                                  <td id='structfield.condition'><code>condition</code></td><td><div class='docblock'><p>TODO: maybe renamed to LHS, supports functions and SQL</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.subfilters'><code>subfilters</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../rustorm/query/struct.Filter.html' title='rustorm::query::Filter'>Filter</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(column: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, equality: <a class='enum' href='../../rustorm/query/enum.Equality.html' title='rustorm::query::Equality'>Equality</a>, value: &amp;<a class='trait' href='../../rustorm/dao/trait.ToValue.html' title='rustorm::dao::ToValue'>ToValue</a>) -&gt; Self</code></h4>
+<div class='docblock'><p>user friendly, commonly use API</p>
+</div><h4 id='method.with_value' class='method'><code>fn <a href='#method.with_value' class='fnname'>with_value</a>(column: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, equality: <a class='enum' href='../../rustorm/query/enum.Equality.html' title='rustorm::query::Equality'>Equality</a>, value: <a class='enum' href='../../rustorm/dao/enum.Value.html' title='rustorm::dao::Value'>Value</a>) -&gt; Self</code></h4>
+<div class='docblock'><p>user friendly, commonly use API</p>
+</div><h4 id='method.bare_new' class='method'><code>fn <a href='#method.bare_new' class='fnname'>bare_new</a>(left: <a class='enum' href='../../rustorm/query/enum.Operand.html' title='rustorm::query::Operand'>Operand</a>, equality: <a class='enum' href='../../rustorm/query/enum.Equality.html' title='rustorm::query::Equality'>Equality</a>, right: <a class='enum' href='../../rustorm/query/enum.Operand.html' title='rustorm::query::Operand'>Operand</a>) -&gt; Self</code></h4>
+<div class='docblock'><p>not very commonly used, offers enough flexibility</p>
+</div><h4 id='method.is_null' class='method'><code>fn <a href='#method.is_null' class='fnname'>is_null</a>(column: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; Self</code></h4>
+<h4 id='method.is_not_null' class='method'><code>fn <a href='#method.is_not_null' class='fnname'>is_not_null</a>(column: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; Self</code></h4>
+<h4 id='method.and' class='method'><code>fn <a href='#method.and' class='fnname'>and</a>(&amp;mut self, column: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, equality: <a class='enum' href='../../rustorm/query/enum.Equality.html' title='rustorm::query::Equality'>Equality</a>, value: &amp;<a class='trait' href='../../rustorm/dao/trait.ToValue.html' title='rustorm::dao::ToValue'>ToValue</a>) -&gt; &amp;mut Self</code></h4>
+<h4 id='method.or' class='method'><code>fn <a href='#method.or' class='fnname'>or</a>(&amp;mut self, column: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, equality: <a class='enum' href='../../rustorm/query/enum.Equality.html' title='rustorm::query::Equality'>Equality</a>, value: &amp;<a class='trait' href='../../rustorm/dao/trait.ToValue.html' title='rustorm::dao::ToValue'>ToValue</a>) -&gt; &amp;mut Self</code></h4>
+<h4 id='method.or_filter' class='method'><code>fn <a href='#method.or_filter' class='fnname'>or_filter</a>(&amp;mut self, filter: <a class='struct' href='../../rustorm/query/struct.Filter.html' title='rustorm::query::Filter'>Filter</a>) -&gt; &amp;mut Self</code></h4>
+<h4 id='method.and_filter' class='method'><code>fn <a href='#method.and_filter' class='fnname'>and_filter</a>(&amp;mut self, filter: <a class='struct' href='../../rustorm/query/struct.Filter.html' title='rustorm::query::Filter'>Filter</a>) -&gt; &amp;mut Self</code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../rustorm/query/struct.Filter.html' title='rustorm::query::Filter'>Filter</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='http://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../rustorm/query/struct.Filter.html' title='rustorm::query::Filter'>Filter</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../rustorm/query/struct.Filter.html' title='rustorm::query::Filter'>Filter</a></code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+            <p>
+                Search functions by type signature (e.g.
+                <code>vec -> usize</code>)
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rustorm";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

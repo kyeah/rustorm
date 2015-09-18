@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Value` enum in crate `rustorm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Value">
+
+    <title>rustorm::dao::Value - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>rustorm</a>::<wbr><a href='index.html'>dao</a></p><script>window.sidebarCurrent = {name: 'Value', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../index.html'>rustorm</a>::<wbr><a href='index.html'>dao</a>::<wbr><a class='enum' href=''>Value</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-7362' class='srclink' href='../../src/rustorm/dao.rs.html#48-70' title='goto source code'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum Value {
+    Bool(<a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>),
+    I8(<a href='http://doc.rust-lang.org/nightly/std/primitive.i8.html'>i8</a>),
+    I16(<a href='http://doc.rust-lang.org/nightly/std/primitive.i16.html'>i16</a>),
+    I32(<a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>),
+    I64(<a href='http://doc.rust-lang.org/nightly/std/primitive.i64.html'>i64</a>),
+    U8(<a href='http://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>),
+    U16(<a href='http://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>),
+    U32(<a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>),
+    U64(<a href='http://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>),
+    F32(<a href='http://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>),
+    F64(<a href='http://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>),
+    String(<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>),
+    VecU8(<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;),
+    Object(<a class='struct' href='http://doc.rust-lang.org/nightly/collections/btree/map/struct.BTreeMap.html' title='collections::btree::map::BTreeMap'>BTreeMap</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='enum' href='../../rustorm/dao/enum.Value.html' title='rustorm::dao::Value'>Value</a>&gt;),
+    Json(<a class='enum' href='http://doc.rust-lang.org/rustc-serialize/rustc_serialize/json/enum.Json.html' title='rustc_serialize::json::Json'>Json</a>),
+    Uuid(<a class='struct' href='http://doc.rust-lang.org/uuid/uuid/struct.Uuid.html' title='uuid::Uuid'>Uuid</a>),
+    DateTime(<a class='struct' href='https://lifthrasiir.github.io/rust-chrono/chrono/datetime/struct.DateTime.html' title='chrono::datetime::DateTime'>DateTime</a>&lt;<a class='struct' href='https://lifthrasiir.github.io/rust-chrono/chrono/offset/utc/struct.UTC.html' title='chrono::offset::utc::UTC'>UTC</a>&gt;),
+    NaiveDate(<a class='struct' href='https://lifthrasiir.github.io/rust-chrono/chrono/naive/date/struct.NaiveDate.html' title='chrono::naive::date::NaiveDate'>NaiveDate</a>),
+    NaiveTime(<a class='struct' href='https://lifthrasiir.github.io/rust-chrono/chrono/naive/time/struct.NaiveTime.html' title='chrono::naive::time::NaiveTime'>NaiveTime</a>),
+    NaiveDateTime(<a class='struct' href='https://lifthrasiir.github.io/rust-chrono/chrono/naive/datetime/struct.NaiveDateTime.html' title='chrono::naive::datetime::NaiveDateTime'>NaiveDateTime</a>),
+    Null,
+}</pre><div class='docblock'><p>supported generic datatypes for an ORM</p>
+</div><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.Bool'><code>Bool</code></td><td></td></tr><tr><td id='variant.I8'><code>I8</code></td><td></td></tr><tr><td id='variant.I16'><code>I16</code></td><td></td></tr><tr><td id='variant.I32'><code>I32</code></td><td></td></tr><tr><td id='variant.I64'><code>I64</code></td><td></td></tr><tr><td id='variant.U8'><code>U8</code></td><td></td></tr><tr><td id='variant.U16'><code>U16</code></td><td></td></tr><tr><td id='variant.U32'><code>U32</code></td><td></td></tr><tr><td id='variant.U64'><code>U64</code></td><td></td></tr><tr><td id='variant.F32'><code>F32</code></td><td></td></tr><tr><td id='variant.F64'><code>F64</code></td><td></td></tr><tr><td id='variant.String'><code>String</code></td><td></td></tr><tr><td id='variant.VecU8'><code>VecU8</code></td><td></td></tr><tr><td id='variant.Object'><code>Object</code></td><td></td></tr><tr><td id='variant.Json'><code>Json</code></td><td></td></tr><tr><td id='variant.Uuid'><code>Uuid</code></td><td></td></tr><tr><td id='variant.DateTime'><code>DateTime</code></td><td></td></tr><tr><td id='variant.NaiveDate'><code>NaiveDate</code></td><td></td></tr><tr><td id='variant.NaiveTime'><code>NaiveTime</code></td><td></td></tr><tr><td id='variant.NaiveDateTime'><code>NaiveDateTime</code></td><td></td></tr><tr><td id='variant.Null'><code>Null</code></td><td></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/rustc-serialize/rustc_serialize/serialize/trait.Encodable.html' title='rustc_serialize::serialize::Encodable'>Encodable</a> for <a class='enum' href='../../rustorm/dao/enum.Value.html' title='rustorm::dao::Value'>Value</a></code></h3><div class='docblock'><p>custom implementation for value encoding to json,
+does not include unnecessary enum variants fields.</p>
+</div><div class='impl-items'><h4 id='method.encode' class='method'><code>fn <a href='http://doc.rust-lang.org/rustc-serialize/rustc_serialize/serialize/trait.Encodable.html#method.encode' class='fnname'>encode</a>&lt;S: <a class='trait' href='http://doc.rust-lang.org/rustc-serialize/rustc_serialize/serialize/trait.Encoder.html' title='rustc_serialize::serialize::Encoder'>Encoder</a>&gt;(&amp;self, s: &amp;mut S) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, S::Error&gt;</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/rustc-serialize/rustc_serialize/json/trait.ToJson.html' title='rustc_serialize::json::ToJson'>ToJson</a> for <a class='enum' href='../../rustorm/dao/enum.Value.html' title='rustorm::dao::Value'>Value</a></code></h3><div class='impl-items'><h4 id='method.to_json' class='method'><code>fn <a href='http://doc.rust-lang.org/rustc-serialize/rustc_serialize/json/trait.ToJson.html#method.to_json' class='fnname'>to_json</a>(&amp;self) -&gt; <a class='enum' href='http://doc.rust-lang.org/rustc-serialize/rustc_serialize/json/enum.Json.html' title='rustc_serialize::json::Json'>Json</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='enum' href='../../rustorm/dao/enum.Value.html' title='rustorm::dao::Value'>Value</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='http://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../../rustorm/dao/enum.Value.html' title='rustorm::dao::Value'>Value</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='http://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../../rustorm/dao/enum.Value.html' title='rustorm::dao::Value'>Value</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../rustorm/dao/enum.Value.html' title='rustorm::dao::Value'>Value</a></code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../../rustorm/dao/enum.Value.html' title='rustorm::dao::Value'>Value</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../rustorm/dao/enum.Value.html' title='rustorm::dao::Value'>Value</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../rustorm/dao/enum.Value.html' title='rustorm::dao::Value'>Value</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+            <p>
+                Search functions by type signature (e.g.
+                <code>vec -> usize</code>)
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rustorm";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

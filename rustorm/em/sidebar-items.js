@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["EntityManager","A higher level API for manipulating objects in the database This serves as a helper function for the query api"]]});

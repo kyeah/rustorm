@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Table` struct in crate `rustorm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Table">
+
+    <title>rustorm::table::Table - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>rustorm</a>::<wbr><a href='index.html'>table</a></p><script>window.sidebarCurrent = {name: 'Table', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rustorm</a>::<wbr><a href='index.html'>table</a>::<wbr><a class='struct' href=''>Table</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-20508' class='srclink' href='../../src/rustorm/table.rs.html#165-192' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Table {
+    pub schema: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>,
+    pub name: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>,
+    pub parent_table: <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
+    pub sub_table: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
+    pub comment: <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
+    pub columns: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/table/struct.Column.html' title='rustorm::table::Column'>Column</a>&gt;,
+    pub is_view: <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>,
+}</pre><h2 class='fields'>Fields</h2>
+<table><tr class='stab '>
+                                  <td id='structfield.schema'><code>schema</code></td><td><div class='docblock'><p>which schema this belongs</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.name'><code>name</code></td><td><div class='docblock'><p>the table name</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.parent_table'><code>parent_table</code></td><td><div class='docblock'><p>the parent table of this table when inheriting (&gt;= postgresql 9.3)
+[FIXME] need to tell which schema this parent table belongs
+there might be same table in different schemas</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.sub_table'><code>sub_table</code></td><td><div class='docblock'><p>what are the other table that inherits this
+[FIXME] need to tell which schema this parent table belongs
+there might be same table in different schemas</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.comment'><code>comment</code></td><td><div class='docblock'><p>comment of this table</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.columns'><code>columns</code></td><td><div class='docblock'><p>columns of this table</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.is_view'><code>is_view</code></td><td><div class='docblock'><p>views can also be generated</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a></code></h3><div class='impl-items'><h4 id='method.complete_name' class='method'><code>fn <a href='#method.complete_name' class='fnname'>complete_name</a>(&amp;self) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<div class='docblock'><p>return the long name of the table using schema.table_name</p>
+</div><h4 id='method.struct_name' class='method'><code>fn <a href='#method.struct_name' class='fnname'>struct_name</a>(&amp;self) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<div class='docblock'><p>capitalize the first later, if there is underscore remove it then capitalize the next letter</p>
+</div><h4 id='method.displayname' class='method'><code>fn <a href='#method.displayname' class='fnname'>displayname</a>(&amp;self) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<div class='docblock'><p>get the display name of this table
+product_availability -&gt; Product Availability</p>
+</div><h4 id='method.condensed_displayname' class='method'><code>fn <a href='#method.condensed_displayname' class='fnname'>condensed_displayname</a>(&amp;self, table: &amp;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<div class='docblock'><p>get a shorter display name of a certain table
+when being refered to this table
+example product.product_availability -&gt; Availability
+user.user_info -&gt; Info</p>
+</div><h4 id='method.condensed_member_name' class='method'><code>fn <a href='#method.condensed_member_name' class='fnname'>condensed_member_name</a>(&amp;self, used_in_table: &amp;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+<div class='docblock'><p>get a condensed name of this table when used in contex with another table</p>
+</div><h4 id='method.has_column_name' class='method'><code>fn <a href='#method.has_column_name' class='fnname'>has_column_name</a>(&amp;self, column: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>determine if this table has a colum named</p>
+</div><h4 id='method.get_column' class='method'><code>fn <a href='#method.get_column' class='fnname'>get_column</a>(&amp;self, column: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../rustorm/table/struct.Column.html' title='rustorm::table::Column'>Column</a>&gt;</code></h4>
+<div class='docblock'><p>return the column of this table with the name</p>
+</div><h4 id='method.primary_columns' class='method'><code>fn <a href='#method.primary_columns' class='fnname'>primary_columns</a>(&amp;self) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a class='struct' href='../../rustorm/table/struct.Column.html' title='rustorm::table::Column'>Column</a>&gt;</code></h4>
+<div class='docblock'><p>return all the primary columns of this table</p>
+</div><h4 id='method.non_nullable_columns' class='method'><code>fn <a href='#method.non_nullable_columns' class='fnname'>non_nullable_columns</a>(&amp;self) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></h4>
+<h4 id='method.uninherited_columns' class='method'><code>fn <a href='#method.uninherited_columns' class='fnname'>uninherited_columns</a>(&amp;self) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a class='struct' href='../../rustorm/table/struct.Column.html' title='rustorm::table::Column'>Column</a>&gt;</code></h4>
+<div class='docblock'><p>return all the columns of this table excluding the inherited columns</p>
+</div><h4 id='method.inherited_columns' class='method'><code>fn <a href='#method.inherited_columns' class='fnname'>inherited_columns</a>(&amp;self) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a class='struct' href='../../rustorm/table/struct.Column.html' title='rustorm::table::Column'>Column</a>&gt;</code></h4>
+<div class='docblock'><p>return all the inherited columns</p>
+</div><h4 id='method.is_primary' class='method'><code>fn <a href='#method.is_primary' class='fnname'>is_primary</a>(&amp;self, column_name: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>check to see if the column is a primary or not
+the Column.is_primary property is not reliable since it also list down the foreign key
+which makes it 2 entries in the table</p>
+</div><h4 id='method.unique_columns' class='method'><code>fn <a href='#method.unique_columns' class='fnname'>unique_columns</a>(&amp;self) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a class='struct' href='../../rustorm/table/struct.Column.html' title='rustorm::table::Column'>Column</a>&gt;</code></h4>
+<div class='docblock'><p>return all the unique keys of this table</p>
+</div><h4 id='method.foreign_columns' class='method'><code>fn <a href='#method.foreign_columns' class='fnname'>foreign_columns</a>(&amp;self) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a class='struct' href='../../rustorm/table/struct.Column.html' title='rustorm::table::Column'>Column</a>&gt;</code></h4>
+<h4 id='method.get_table' class='method'><code>fn <a href='#method.get_table' class='fnname'>get_table</a>&lt;'a&gt;(schema: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, table_name: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, tables: &amp;'a <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>&gt;) -&gt; &amp;'a <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a></code></h4>
+<div class='docblock'><p>return the first match of table name regardless of which schema it belongs to.
+get the table definition using the table name from an array of table object
+[FIXME] Needs to have a more elegant solution by using HashMap</p>
+</div><h4 id='method.referred_tables' class='method'><code>fn <a href='#method.referred_tables' class='fnname'>referred_tables</a>&lt;'a&gt;(&amp;'a self, tables: &amp;'a <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>&gt;) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(&amp;'a <a class='struct' href='../../rustorm/table/struct.Column.html' title='rustorm::table::Column'>Column</a>, &amp;'a <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>)</a>&gt;</code></h4>
+<div class='docblock'><p>get all the tables that is referred by this table
+get has_one</p>
+</div><h4 id='method.referring_tables' class='method'><code>fn <a href='#method.referring_tables' class='fnname'>referring_tables</a>&lt;'a&gt;(&amp;self, tables: &amp;'a <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>&gt;) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(&amp;'a <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>, &amp;'a <a class='struct' href='../../rustorm/table/struct.Column.html' title='rustorm::table::Column'>Column</a>)</a>&gt;</code></h4>
+<div class='docblock'><p>has_many_direct
+get all other tables that is refering to this table
+when any column of a table refers to this table
+get_has_many</p>
+</div><h4 id='method.get_all_applicable_reference' class='method'><code>fn <a href='#method.get_all_applicable_reference' class='fnname'>get_all_applicable_reference</a>&lt;'a&gt;(&amp;'a self, all_tables: &amp;'a <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>&gt;) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/table/struct.RefTable.html' title='rustorm::table::RefTable'>RefTable</a>&gt;</code></h4>
+<div class='docblock'><p>all the referenced table of this table, this is used in building the structs as stubs or final model definitions
+it does not include the parent is this table is just an extension to it
+when a linker table, no applicable referenced is returned
+parent of extension tables are not returned</p>
+</div><h4 id='method.is_linker_table' class='method'><code>fn <a href='#method.is_linker_table' class='fnname'>is_linker_table</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>determine if this table is a linker table
+FIXME: make sure that there are 2 different tables referred to it</p>
+</div><h4 id='method.is_owned' class='method'><code>fn <a href='#method.is_owned' class='fnname'>is_owned</a>(&amp;self, tables: &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>&gt;) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>determines if the table is owned by some other table
+say order_line is owned by orders
+which doesn&#39;t make sense to be a stand alone window on its own
+characteristic: if it has only 1 has_one which is its owning parent table
+and no other direct or indirect referring table</p>
+</div><h4 id='method.indirect_referring_tables' class='method'><code>fn <a href='#method.indirect_referring_tables' class='fnname'>indirect_referring_tables</a>&lt;'a&gt;(&amp;self, tables: &amp;'a <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>&gt;) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(&amp;'a <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>, &amp;'a <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>)</a>&gt;</code></h4>
+<div class='docblock'><p>has many indirect
+when there is a linker table, bypass the 1:1 relation to the linker table
+then create a 1:M relation to the other linked table
+Algorithmn: determine whether a table is a linker then get the other linked table
+       *get all the referring table
+       *for each table that refer to this table
+       *if there are only 2 columns and is both primary
+           and foreign key at the same time
+        and 1 of which refer to the primary column of this table
+    * then the other table that is refered is the indirect referring table
+returns the table that is indirectly referring to this table and its linker table</p>
+</div><h4 id='method.extension_tables' class='method'><code>fn <a href='#method.extension_tables' class='fnname'>extension_tables</a>&lt;'a&gt;(&amp;self, tables: &amp;'a <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>&gt;) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;'a <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>&gt;</code></h4>
+<div class='docblock'><p>get referring tables, and check if primary columns of these referring table
+is the same set of the primary columns of this table
+it is just an extension table
+[FIXED]~~FIXME:~~ 2 primary 1 foreign should not be included as extension table
+case for photo_sizes</p>
+</div><h4 id='method.is_extension_of' class='method'><code>fn <a href='#method.is_extension_of' class='fnname'>is_extension_of</a>(&amp;self, table: &amp;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>, all_tables: &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>&gt;) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>determines if this table is just an extension of the table specified
+extension tables need not to contain a reference of their parent table</p>
+</div><h4 id='method.get_foreign_columns_to_table' class='method'><code>fn <a href='#method.get_foreign_columns_to_table' class='fnname'>get_foreign_columns_to_table</a>(&amp;self, foreign_table: &amp;<a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a>) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a class='struct' href='../../rustorm/table/struct.Column.html' title='rustorm::table::Column'>Column</a>&gt;</code></h4>
+<div class='docblock'><p>returns the columns of these table that is a foreign columns to the foreign table</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../rustorm/query/trait.ToTableName.html' title='rustorm::query::ToTableName'>ToTableName</a> for <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a></code></h3><div class='impl-items'><h4 id='method.to_table_name' class='method'><code>fn <a href='../../rustorm/query/trait.ToTableName.html#method.to_table_name' class='fnname'>to_table_name</a>(&amp;self) -&gt; <a class='struct' href='../../rustorm/query/struct.TableName.html' title='rustorm::query::TableName'>TableName</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='http://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;Self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;Self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='http://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../rustorm/table/struct.Table.html' title='rustorm::table::Table'>Table</a></code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+            <p>
+                Search functions by type signature (e.g.
+                <code>vec -> usize</code>)
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rustorm";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>
