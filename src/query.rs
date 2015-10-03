@@ -337,11 +337,11 @@ impl TableName {
             }
         }
     }
-
+    
     pub fn complete_name(&self) -> String {
         match self.schema {
-            Some (ref schema) => format!("{}.{}", schema, self.name),
-            None => self.name.to_owned(),
+            Some (ref schema) => format!("{}.{}",schema, self.name),
+            None => self.name.to_owned()
         }
     }
 }

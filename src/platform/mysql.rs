@@ -169,8 +169,6 @@ impl Database for Mysql {
     }
 
     fn execute_sql_with_return(&self, sql: &str, params: &[Value]) -> Result<Vec<Dao>, DbError> {
-        println!("SQL: \n{}", sql);
-        println!("param: {:?}", params);
         assert!(self.pool.is_some());
         let mut stmt = try!(self.get_prepared_statement(sql));
         let mut columns = vec![];
@@ -211,8 +209,6 @@ impl Database for Mysql {
     /// returns only the number of affected records or errors
     /// can be used with DDL operations (CREATE, DELETE, ALTER, DROP)
     fn execute_sql(&self, sql: &str, params: &[Value]) -> Result<usize, DbError> {
-        println!("SQL: \n{}", sql);
-        println!("param: {:?}", params);
         let to_sql_types = Mysql::from_rust_type_tosql(params);
         assert!(self.pool.is_some());
         let result = try!(self.pool.as_ref().unwrap().prep_exec(sql, &to_sql_types));

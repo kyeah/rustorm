@@ -1,7 +1,5 @@
 use url::{Url, Host, SchemeData};
 
-
-
 #[derive(Debug)]
 #[derive(PartialEq)]
 #[derive(Clone)]
@@ -53,7 +51,7 @@ impl DbConfig {
                     }
                     Err(e) => {
                         match url {
-                            "sqlite://:memory:" => {//special case for sqlite, maybe only use 2 // sqlite:://:memory:
+                            "sqlite://:memory:" => {//special case for sqlite, maybe only use 2 // sqlite:://:memory
                                 return Some(DbConfig {
                                     platform: scheme.to_owned(),
                                     username: None,
@@ -156,7 +154,6 @@ fn test_config_url() {
         ssl: false,
         database: "bazaar_v6".to_owned(),
     };
-
     assert_eq!(config.get_url(), url.to_owned());
 }
 
@@ -180,7 +177,6 @@ fn test_config_url_with_port() {
         database: "bazaar_v6".to_owned(),
         ssl: false,
     };
-
     assert_eq!(config.get_url(), url.to_owned());
 }
 
@@ -201,7 +197,6 @@ fn test_config_sqlite_url_with_port() {
     assert_eq!(parsed_config, expected_config);
 }
 
-
 #[test]
 fn test_config_sqlite_url_with_path() {
     let url = "sqlite:///home/some/path/file.db";
@@ -218,7 +213,6 @@ fn test_config_sqlite_url_with_path() {
     println!("{:?}", parsed_config);
     assert_eq!(parsed_config, expected_config);
 }
-
 
 #[test]
 fn sqlite_in_memory() {

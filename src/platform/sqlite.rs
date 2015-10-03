@@ -125,18 +125,13 @@ impl Sqlite {
 
     /// get the foreign keys of table
     fn get_foreign_keys(&self, _schema: &str, table: &str) -> Vec<Foreign> {
-        println!("Extracting foreign keys...");
         let sql = format!("PRAGMA foreign_key_list({});", table);
         let result = self.execute_sql_with_return(&sql, &vec![]).unwrap();
-        println!("result: {:#?}", result);
         let mut foreigns = vec![];
         for r in result {
             let table: String = r.get("table");
             let from: String = r.get("from");
             let to: String = r.get("to");
-            println!("table: {}", table);
-            println!("from: {}", from);
-            println!("to: {}", to);
 
             let foreign = Foreign {
                 schema: "".to_owned(),
@@ -493,10 +488,8 @@ impl DatabaseDev for Sqlite {
     }
 
     fn get_table_metadata(&self, schema: &str, table: &str, _is_view: bool) -> Table {
-        println!("extracting table meta data in sqlite");
         let sql = format!("PRAGMA table_info({});", table);
         let result = self.execute_sql_with_return(&sql, &vec![]);
-        println!("result: {:#?}", result);
         match result {
             Ok(result) => {
                 let foreign = self.get_foreign_keys(schema, table);
@@ -510,11 +503,6 @@ impl DatabaseDev for Sqlite {
                     let default_value: String = r.get("dflt_value");
                     let not_null: String = r.get("notnull");
                     let pk: String = r.get("pk");
-                    println!("column: {}", column);
-                    println!("data_type: {}", data_type);
-                    println!("not null: {}", not_null);
-                    println!("pk: {}", pk);
-                    println!("default_value: {}", default_value);
 
                     let column_comment = self.get_column_comment(&column_comments, &column);
                     let column_foreign = self.get_column_foreign(&foreign, &column);

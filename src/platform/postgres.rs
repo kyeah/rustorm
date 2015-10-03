@@ -13,6 +13,7 @@ use postgres::rows::Row;
 use database::SqlOption;
 use r2d2::PooledConnection;
 use r2d2_postgres::PostgresConnectionManager;
+use std::collections::BTreeMap;
 
 pub struct Postgres {
     /// a connection pool is provided
@@ -32,12 +33,9 @@ impl Postgres {
         Postgres { pool: None }
     }
 
-
     pub fn with_pooled_connection(pool: PooledConnection<PostgresConnectionManager>) -> Self {
         Postgres { pool: Some(pool) }
     }
-
-
 
     pub fn get_connection(&self) -> &Connection {
         match self.pool {
@@ -275,28 +273,11 @@ impl Postgres {
             let is_primary: bool = row.get("is_primary");
             let is_unique: bool = row.get("is_unique");
 
-            let default: Option<String> = match row.get_opt("default") {
-                Ok(x) => Some(x),
-                Err(_) => None,
-            };
-            let comment: Option<String> = match row.get_opt("comment") {
-                Ok(x) => Some(x),
-                Err(_) => None,
-            };
-
-            let foreign_schema: Option<String> = match row.get_opt("foreign_schema") {
-                Ok(x) => Some(x),
-                Err(_) => None,
-            };
-            let foreign_column: Option<String> = match row.get_opt("foreign_column") {
-                Ok(x) => Some(x),
-                Err(_) => None,
-            };
-            let foreign_table: Option<String> = match row.get_opt("foreign_table") {
-                Ok(x) => Some(x),
-                Err(_) => None,
-            };
-
+            let default: Option<String> = row.get_opt("default").ok();
+            let comment: Option<String> = row.get_opt("comment").ok();
+            let foreign_schema: Option<String> = row.get_opt("foreign_schema").ok();
+            let foreign_column: Option<String> = row.get_opt("foreign_column").ok();
+            let foreign_table: Option<String> = row.get_opt("foreign_table").ok();
 
             let foreign = if foreign_table.is_some() && foreign_column.is_some() &&
                              foreign_schema.is_some() {
@@ -347,10 +328,7 @@ impl Postgres {
         let conn = self.get_connection();
         let stmt = conn.prepare(&sql).unwrap();
         for row in stmt.query(&[&schema, &table]).unwrap() {
-            let comment: Option<String> = match row.get_opt("comment") {
-                Ok(x) => Some(x),
-                Err(_) => None,
-            };
+            let comment: Option<String> = row.get_opt("comment").ok();
             return comment;
         }
         None
@@ -361,6 +339,7 @@ impl Postgres {
         let mut unified_columns = Vec::new();
         let mut primary_columns = Vec::new();
         let mut foreign_columns = Vec::new();
+        let mut column_names = BTreeMap::new();
         for c in columns {
             if c.is_primary {
                 primary_columns.push(c.name.clone());
@@ -371,14 +350,31 @@ impl Postgres {
         }
         //if both primary and foreign, push only the modified foreign
         for c in columns {
+            let mut inserted = false;
             if primary_columns.contains(&c.name) && foreign_columns.contains(&c.name) {
                 if c.foreign.is_some() {
                     let mut clone_column = c.clone();
                     clone_column.is_primary = true;
                     unified_columns.push(clone_column);
+                    inserted = true;
                 }
-            } else {
-                unified_columns.push(c.clone());
+            }
+            else {
+                match column_names.get(&c.name) {
+                    Some(index) => {
+                        let ref mut ucol: Column = unified_columns[*index];
+                        ucol.is_primary = ucol.is_primary || c.is_primary;
+                        ucol.is_unique = ucol.is_unique || c.is_unique;
+                        ucol.not_null = ucol.not_null || c.not_null;
+                    },
+                    None => {
+                        unified_columns.push(c.clone());
+                        inserted = true;
+                    }
+                }
+            }
+            if inserted {
+                column_names.insert(c.name.clone(), unified_columns.len() - 1);
             }
         }
         unified_columns
@@ -507,7 +503,6 @@ impl DatabaseDDL for Postgres {
     fn set_primary_constraint(&self, _model: &Table) {
         unimplemented!()
     }
-
 }
 
 /// this can be condensed with using just extracting the table definition
@@ -530,10 +525,7 @@ impl DatabaseDev for Postgres {
         let conn = self.get_connection();
         let stmt = conn.prepare(&sql).unwrap();
         for row in stmt.query(&[&schema, &table]).unwrap() {
-            let parent_table: Option<String> = match row.get_opt("parent_table") {
-                Ok(x) => Some(x),
-                Err(_) => None,
-            };
+            let parent_table: Option<String> = row.get_opt("parent_table").ok();
             return parent_table;
         }
         None
@@ -557,9 +549,8 @@ impl DatabaseDev for Postgres {
         let stmt = conn.prepare(&sql).unwrap();
         let mut sub_classes: Vec<String> = vec![];
         for row in stmt.query(&[&schema, &table]).unwrap() {
-            match row.get_opt("sub_class") {
-                Ok(x) => sub_classes.push(x),
-                Err(_) => (),
+            if let Ok(x) = row.get_opt("sub_class") {
+                sub_classes.push(x);
             }
         }
         sub_classes
@@ -812,5 +803,4 @@ impl DatabaseDev for Postgres {
                         rust_type),
         }
     }
-
 }

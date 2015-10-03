@@ -53,7 +53,7 @@ fn test_insert_query() {
    INSERT INTO bazaar.product( name )\x20
    VALUES ($1 )\x20
 RETURNING name
-".to_string();
+".to_owned();
     println!("actual:   {{\n{}}} [{}]", frag.sql, frag.sql.len());
     println!("expected: {{{}}} [{}]", expected, expected.len());
     assert!(frag.sql.trim() == expected.trim());

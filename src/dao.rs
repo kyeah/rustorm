@@ -12,7 +12,6 @@ use rustc_serialize::{Encodable, Encoder};
 #[allow(unused_imports)]
 use rustc_serialize::json::{self, ToJson, Json};
 
-
 #[derive(Debug)]
 #[derive(Clone)]
 #[derive(PartialEq)]
@@ -329,6 +328,7 @@ impl Dao {
     pub fn set_value(&mut self, column: &str, value: Value) {
         self.values.insert(column.to_owned(), value);
     }
+
     pub fn get_value(&self, column: &str) -> Value {
         let value = self.values.get(column);
         match value {
