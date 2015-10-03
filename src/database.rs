@@ -453,9 +453,9 @@ pub trait Database {
                 match join.join_type {
                     Some(ref join_type) => {
                         match *join_type {
-                            JoinType::CROSS => w.append("CROSS "),
-                            JoinType::INNER => w.append("INNER "),
-                            JoinType::OUTER => w.append("OUTER "),
+                            JoinType::CROSS => w.append(" CROSS "),
+                            JoinType::INNER => w.append(" INNER "),
+                            JoinType::OUTER => w.append(" OUTER "),
                         };
                     }
                     None => (),
@@ -556,7 +556,6 @@ pub trait Database {
 
     /// TODO complete this
     fn build_insert(&self, query: &Query) -> SqlFrag {
-        println!("building insert query");
         let mut w = SqlFrag::new(self.sql_options());
         w.left_river("INSERT");
         w.append("INTO ");

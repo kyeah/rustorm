@@ -100,7 +100,7 @@ impl Postgres {
             Type::TimestampTZ | Type::Timestamp => {
                 let value = row.get_opt(index);
                 match value {
-                    Ok(value) => Value::DateTime(value),
+                    Ok(value) => Value::NaiveDateTime(value),
                     Err(_) => Value::Null,
                 }
             }
@@ -440,7 +440,6 @@ impl Database for Postgres {
         ]
     }
 
-
     fn update(&self, _query: &Query) -> Dao {
         unimplemented!()
     }
@@ -449,8 +448,6 @@ impl Database for Postgres {
     }
 
     fn execute_sql_with_return(&self, sql: &str, params: &[Value]) -> Result<Vec<Dao>, DbError> {
-        println!("SQL: \n{}", sql);
-        println!("param: {:?}", params);
         let conn = self.get_connection();
         let stmt = try!(conn.prepare(sql));
         let mut daos = vec![];
@@ -476,8 +473,6 @@ impl Database for Postgres {
     /// returns only the number of affected records or errors
     /// can be used with DDL operations (CREATE, DELETE, ALTER, DROP)
     fn execute_sql(&self, sql: &str, params: &[Value]) -> Result<usize, DbError> {
-        println!("SQL: \n{}", sql);
-        println!("param: {:?}", params);
         let to_sql_types = self.from_rust_type_tosql(params);
         let conn = self.get_connection();
         let result = try!(conn.execute(sql, &to_sql_types));

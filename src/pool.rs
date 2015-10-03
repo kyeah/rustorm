@@ -76,7 +76,6 @@ impl ManagedPool {
                 match platform {
                     "postgres" => {
                         let manager = try!(PostgresConnectionManager::new(url, SslMode::None));
-                        println!("Creating a connection with a pool size of {}", pool_size);
                         let config = Config::builder().pool_size(pool_size as u32).build();
                         let pool = try!(Pool::new(config, manager));
                         Ok(ManagedPool::Postgres(pool))

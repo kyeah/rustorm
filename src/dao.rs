@@ -404,6 +404,12 @@ impl ToValue for () {
     }
 }
 
+impl ToValue for Value {
+    fn to_db_type(&self) -> Value {
+        self.clone()
+    }
+}
+
 impl ToValue for bool {
     fn to_db_type(&self) -> Value {
         Value::Bool(self.clone())
