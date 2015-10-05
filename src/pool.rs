@@ -69,48 +69,39 @@ pub enum ManagedPool {
 impl ManagedPool {
     /// initialize the pool
     pub fn init(url: &str, pool_size: usize) -> Result<Self, DbError> {
-        let config = DbConfig::from_url(url);
-        match config {
-            Some(config) => {
-                let platform: &str = &config.platform;
-                match platform {
-                    "postgres" => {
-                        let manager = try!(PostgresConnectionManager::new(url, SslMode::None));
-                        let config = Config::builder().pool_size(pool_size as u32).build();
-                        let pool = try!(Pool::new(config, manager));
-                        Ok(ManagedPool::Postgres(pool))
-                    }
-
-                    #[cfg(feature = "sqlite")]
-                    "sqlite" => {
-                        let manager = try!(SqliteConnectionManager::new(&config.database));
-                        let config = Config::builder().pool_size(pool_size as u32).build();
-                        let pool = try!(Pool::new(config, manager));
-                        Ok(ManagedPool::Sqlite(pool))
-                    }
-
-                    "mysql" => {
-                        let opts = MyOpts {
-                            user: config.username,
-                            pass: config.password,
-                            db_name: Some(config.database),
-                            tcp_addr: Some(config.host.unwrap().to_string()),
-                            tcp_port: config.port.unwrap_or(3306),
-                            ..Default::default()
-                        };
-                        let pool = try!(MyPool::new_manual(0, pool_size, opts));
-                        Ok(ManagedPool::Mysql(Some(pool)))
-                    }
-
-                    _ => unimplemented!(),
-                }
+        let config = try!(DbConfig::from_url(url));
+        let platform: &str = &config.platform;
+        match platform {
+            "postgres" => {
+                let manager = try!(PostgresConnectionManager::new(url, SslMode::None));
+                let config = Config::builder().pool_size(pool_size as u32).build();
+                let pool = try!(Pool::new(config, manager));
+                Ok(ManagedPool::Postgres(pool))
             }
-            None => {
-                println!("Unable to parse url");
-                Err(DbError::new("Error parsing url"))
+            
+            #[cfg(feature = "sqlite")]
+            "sqlite" => {
+                let manager = try!(SqliteConnectionManager::new(&config.database));
+                let config = Config::builder().pool_size(pool_size as u32).build();
+                let pool = try!(Pool::new(config, manager));
+                Ok(ManagedPool::Sqlite(pool))
             }
+            
+            "mysql" => {
+                let opts = MyOpts {
+                    user: config.username,
+                    pass: config.password,
+                    db_name: Some(config.database),
+                    tcp_addr: Some(config.host.unwrap().to_string()),
+                    tcp_port: config.port.unwrap_or(3306),
+                    ..Default::default()
+                };
+                let pool = try!(MyPool::new_manual(0, pool_size, opts));
+                Ok(ManagedPool::Mysql(Some(pool)))
+            }
+            
+            _ => unimplemented!(),
         }
-
     }
 
     /// a conection is created here

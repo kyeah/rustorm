@@ -570,7 +570,6 @@ impl Table {
             let rt_fk = rt.foreign_columns();
             let rt_uc = rt.uninherited_columns();
             if rt_pk.len() == 2 && rt_fk.len() == 2 && rt_uc.len() == 2 {
-                //println!("{} is a candidate linker table for {}", rt.name, self.name);
                 let ref_tables = rt.referred_tables(tables);
                 let (_, t0) = ref_tables[0];
                 let (_, t1) = ref_tables[1];
@@ -638,7 +637,6 @@ impl Table {
         let fk = self.foreign_columns();
         for f in fk {
             if pk.contains(&f) {
-                //println!("{}.{} is both primary and foreign", self.name, f.name);
                 both.push(f);
             }
         }

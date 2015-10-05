@@ -250,12 +250,10 @@ impl DatabaseDDL for Mysql{
         w.append(")");
         w
     }
-    fn create_table(&self, table: &Table) {
+    fn create_table(&self, table: &Table) -> Result<(), DbError> {
         let frag = self.build_create_table(table);
-        match self.execute_sql(&frag.sql, &vec![]) {
-            Ok(_) => println!("created table.."),
-            Err(e) => panic!("table not created {}", e),
-        }
+        let _ = try!(self.execute_sql(&frag.sql, &vec![]));
+        Ok(())
     }
 
     fn rename_table(&self, _table: &Table, _new_tablename: String) {

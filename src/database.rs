@@ -290,7 +290,6 @@ pub trait Database {
                 if !operands.is_empty() {
                     w.append("(");
                     for op in operands {
-                        println!("op: {:?}", op);
                         if do_comma {
                             w.commasp();
                         } else {
@@ -692,7 +691,7 @@ pub trait DatabaseDDL{
     fn drop_schema(&self, schema: &str);
 
     /// create a database table based on the Model Definition
-    fn create_table(&self, model: &Table);
+    fn create_table(&self, model: &Table) -> Result<(), DbError>;
 
     /// build sql for create table
     fn build_create_table(&self, table: &Table) -> SqlFrag;

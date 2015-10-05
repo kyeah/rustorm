@@ -485,7 +485,7 @@ impl DatabaseDDL for Postgres {
     fn drop_schema(&self, _schema: &str) {
         unimplemented!()
     }
-    fn create_table(&self, _model: &Table) {
+    fn create_table(&self, _model: &Table) -> Result<(), DbError> {
         unimplemented!()
     }
     fn build_create_table(&self, _table: &Table) -> SqlFrag {

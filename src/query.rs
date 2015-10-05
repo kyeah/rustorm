@@ -225,6 +225,10 @@ impl Field {
     fn rename(&self) -> Field {
         match self.operand {
             Operand::ColumnName(ref column_name) => {
+                if column_name.column == "*" {
+                    return self.clone();
+                }
+
                 let rename = column_name.default_rename();
                 Field {
                     operand: Operand::ColumnName(column_name.clone()),

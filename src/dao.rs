@@ -90,7 +90,6 @@ impl Encodable for Value {
             Value::VecU8(ref x) => x.encode(s),
             Value::Uuid(ref x) => x.encode(s),
             Value::DateTime(ref x) => {
-                println!("encoding date time: {}", x.to_rfc3339());
                 x.to_rfc3339().encode(s)
             }
             Value::NaiveDate(ref x) => x.encode(s),
@@ -714,6 +713,4 @@ fn test_json() {
     let _: Option<u8> = dao.get_opt("none");
     let expected = r#"{"age":20,"created":{"datetime":{"date":{"ymdf":16510090},"time":{"secs":28087,"frac":451865185}},"offset":{}},"name":"lee"}"#;
     let actual = json::encode(&dao).unwrap();
-    println!("expected: {}", expected);
-    println!("actual: {}", actual);
 }

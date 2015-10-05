@@ -1,4 +1,5 @@
 use url::{Url, Host, SchemeData};
+use database::DbError;
 
 #[derive(Debug)]
 #[derive(PartialEq)]
@@ -21,18 +22,16 @@ impl DbConfig {
 
     /// TODO: get rid of the hacky way parsing database url
     /// https://github.com/servo/rust-url/issues/40
-    pub fn from_url(url: &str) -> Option<Self> {
+    pub fn from_url(url: &str) -> Result<Self, DbError> {
         let parsed = Url::parse(url);
         match parsed {
             Ok(parsed) => {
                 let non_relative = match parsed.scheme_data {
-                    SchemeData::NonRelative(ref x) => {
-                        x
-                    }
-                    SchemeData::Relative(ref x) => {
-                        panic!("Expecting a NonRelative SchemeData {}", x)
-                    }
+                    SchemeData::NonRelative(ref x) => x,
+                    SchemeData::Relative(ref x) => return Err(DbError::Error(
+                        format!("Expecting a NonRelative SchemeData {}", x))),
                 };
+
                 let scheme: &str = &parsed.scheme;
                 // FIXME: This is a hacky way to parse database url, using servo/url parser
                 let https_url = format!("https:{}", non_relative);
@@ -41,18 +40,15 @@ impl DbConfig {
                 let reparse_relative = match reparse {
                     Ok(reparse) => {
                         match reparse.scheme_data {
-                            SchemeData::Relative(ref relative) => {
-                                relative.clone()
-                            }
-                            SchemeData::NonRelative(ref x) => {
-                                panic!("Expecting a Relative SchemeData {}", x)
-                            }
+                            SchemeData::Relative(ref relative) => relative.clone(),
+                            SchemeData::NonRelative(ref x) => return Err(DbError::Error(
+                                format!("Expecting a Relative SchemeData {}", x))),
                         }
                     }
                     Err(e) => {
                         match url {
                             "sqlite://:memory:" => {//special case for sqlite, maybe only use 2 // sqlite:://:memory
-                                return Some(DbConfig {
+                                return Ok(DbConfig {
                                     platform: scheme.to_owned(),
                                     username: None,
                                     password: None,
@@ -62,7 +58,7 @@ impl DbConfig {
                                     ssl: false,
                                 });
                             }
-                            _ => panic!("error parsing https url:{}", e),
+                            _ => return Err(DbError::Error(format!("error parsing https url:{}", e))),
                         }
                     }
                 };
@@ -73,13 +69,15 @@ impl DbConfig {
                         let mut complete_path = String::new();
                         let domain = match reparse_relative.host {
                             Host::Domain(ref domain) => domain.to_owned(),
-                            _ => panic!("ip is not allowed in sqlite"),
+                            _ => return Err(DbError::Error("ip is not allowed in sqlite".to_owned())),
                         };
+
                         complete_path.push_str(&format!("/{}", domain));
                         for p in reparse_relative.path {
                             complete_path.push_str(&format!("/{}", p));
                         }
-                        Some(DbConfig {
+
+                        Ok(DbConfig {
                             platform: scheme.to_owned(),
                             username: None,
                             password: None,
@@ -89,25 +87,23 @@ impl DbConfig {
                             ssl: false,
                         })
                     }
-                    _ => Some(DbConfig {
+                    _ => Ok(DbConfig {
                         platform: scheme.to_owned(),
                         username: Some(reparse_relative.username.clone()),
                         password: reparse_relative.password.clone(),
                         host: Some(reparse_relative.host.clone()),
                         port: reparse_relative.port,
                         database: {
-                            assert!(reparse_relative.path.len() == 1,
-                                    "There should only be 1 path");
+                            if reparse_relative.path.len() != 1 {
+                                return Err(DbError::Error("There should only be 1 path".to_owned()));
+                            }
                             reparse_relative.path[0].to_owned()
                         },
                         ssl: false,
                     }),
                 }
-            }
-            Err(e) => {
-                println!("Error parsing url \"{}\": {}", url, e);
-                None
-            }
+            },
+            Err(e) => Err(DbError::Error(format!("Error parsing url \"{}\": {}", url, e))),
         }
 
     }
@@ -193,7 +189,6 @@ fn test_config_sqlite_url_with_port() {
         database: "/bazaar_v6.db/".to_owned(),
         ssl: false,
     };
-    println!("{:?}", parsed_config);
     assert_eq!(parsed_config, expected_config);
 }
 
@@ -210,7 +205,6 @@ fn test_config_sqlite_url_with_path() {
         database: "/home/some/path/file.db".to_owned(),
         ssl: false,
     };
-    println!("{:?}", parsed_config);
     assert_eq!(parsed_config, expected_config);
 }
 
@@ -227,6 +221,5 @@ fn sqlite_in_memory() {
         database: ":memory:".to_owned(),
         ssl: false,
     };
-    println!("{:?}", parsed_config);
     assert_eq!(parsed_config, expected_config);
 }

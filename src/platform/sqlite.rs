@@ -147,21 +147,17 @@ impl Sqlite {
                             (create_sql: &str)
                              -> Result<(Option<String>, BTreeMap<String, Option<String>>), DbError> {
         let re = try!(Regex::new(r".*CREATE\s+TABLE\s+(\S+)\s*\((?s)(.*)\).*"));
-        println!("create_sql: {:?}", create_sql);
         if re.is_match(&create_sql) {
-            println!("matched...");
             let cap = re.captures(&create_sql).unwrap();
             let all_columns = cap.at(2).unwrap();
 
             let line_comma_re = try!(Regex::new(r"[,\n]"));
-            println!("All columns.. {}", all_columns);
             let splinters: Vec<&str> = line_comma_re.split(all_columns).collect();
-            println!("splinters: {:#?}", splinters);
             let splinters: Vec<&str> = splinters.into_iter()
                                                 .map(|i| i.trim())
                                                 .filter(|&i| i != "")
                                                 .collect();
-            println!("filtered: {:#?}", splinters);
+
             let mut columns: Vec<String> = vec![];
             let mut comments: Vec<Option<String>> = vec![];
             let mut index = 0;
@@ -180,13 +176,11 @@ impl Sqlite {
                 } else {
                     let line: Vec<&str> = splinter.split_whitespace().collect();
                     let column = line[0];
-                    println!("column: {}", column);
                     columns.push(column.to_owned());
                     index += 1
                 }
             }
-            println!("columns: {:#?}", columns);
-            println!("comments: {:#?}", comments);
+
             let table_comment = if comments.len() > 0 {
                 comments[0].clone() //first comment is the table comment
             } else {
@@ -219,7 +213,6 @@ impl Sqlite {
         let create_sql: String = dao.get("sql");
         match Sqlite::extract_comments(&create_sql) {
             Ok((table_comment, _column_comments)) => {
-                println!("table_comment: {:?}", table_comment);
                 table_comment
             }
             Err(_) => {
@@ -238,7 +231,6 @@ impl Sqlite {
         let create_sql: String = dao.get("sql");
         match Sqlite::extract_comments(&create_sql) {
             Ok((_table_comment, column_comments)) => {
-                println!("column_comments: {:?}", column_comments);
                 column_comments
             }
             Err(_) => {
@@ -258,7 +250,6 @@ impl Sqlite {
 
     }
     fn get_column_foreign(&self, all_foreign: &[Foreign], column: &str) -> Option<Foreign> {
-        println!("foreign: {:#?} ", all_foreign);
         for foreign in all_foreign {
             if foreign.column == column {
                 return Some(foreign.clone());
@@ -333,8 +324,6 @@ impl Database for Sqlite {
     /// TODO: found this
     /// http://jgallagher.github.io/rusqlite/rusqlite/struct.SqliteStatement.html#method.column_names
     fn execute_sql_with_return(&self, sql: &str, params: &[Value]) -> Result<Vec<Dao>, DbError> {
-        println!("SQL: \n{}", sql);
-        println!("param: {:?}", params);
         let conn = self.get_connection();
         let mut stmt = conn.prepare(sql).unwrap();
         let mut daos = vec![];
@@ -343,7 +332,7 @@ impl Database for Sqlite {
         for c in stmt.column_names() {
             columns.push(c.to_owned());
         }
-        println!("columns : {:?}", columns);
+
         let rows = try!(stmt.query(&param));
         for row in rows {
             let row = try!(row);
@@ -351,7 +340,6 @@ impl Database for Sqlite {
             let mut dao = Dao::new();
             for col in &columns {
                 let rtype = self.from_sql_to_rust_type(&row, index);
-                println!("{:?}", rtype);
                 dao.set_value(col, rtype);
                 index += 1;
             }
@@ -377,8 +365,6 @@ impl Database for Sqlite {
     /// returns only the number of affected records or errors
     /// can be used with DDL operations (CREATE, DELETE, ALTER, DROP)
     fn execute_sql(&self, sql: &str, params: &[Value]) -> Result<usize, DbError> {
-        println!("SQL: \n{}", sql);
-        println!("param: {:?}", params);
         let to_sql_types = self.from_rust_type_tosql(params);
         let conn = self.get_connection();
         let result = conn.execute(sql, &to_sql_types);
@@ -453,12 +439,11 @@ impl DatabaseDDL for Sqlite {
         w.append(")");
         w
     }
-    fn create_table(&self, table: &Table) {
+
+    fn create_table(&self, table: &Table) -> Result<(), DbError> {
         let frag = self.build_create_table(table);
-        match self.execute_sql(&frag.sql, &vec![]) {
-            Ok(_) => println!("created table.."),
-            Err(e) => panic!("table not created {}", e),
-        }
+        let _ = try!(self.execute_sql(&frag.sql, &vec![]));
+        Ok(())
     }
 
     fn rename_table(&self, _table: &Table, _new_tablename: String) {
